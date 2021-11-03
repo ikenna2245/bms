@@ -1,17 +1,28 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from account.models import Account
+
+from .forms import CustomUserCreationForm, CustomUserChangeForm
+from .models import CustomUser
 
 
+class CustomUserAdmin(UserAdmin):
+    add_form = CustomUserCreationForm
+    form = CustomUserChangeForm
+    model = CustomUser
+    list_display = ('email', 'first_name', 'last_name', 'is_staff', 'is_active', 'last_login')
+    list_filter = ('email', 'is_staff', 'first_name')
+    fieldsets = (
+        (None, {'fields': ('email', 'password', 'first_name', 'last_name', 'business_name', 'user_status', 'phone_number', 'is_password_changed')}),
+        ('Permissions', {'fields': ('is_staff', 'is_active', 'is_superuser')}),
+    )
+    add_fieldsets = (
+        (None, {
+            'classes': ('wide',),
+            'fields': ('email', 'password1', 'password2', 'first_name', 'last_name', 'business_name', 'user_status', 'phone_number', 'is_staff', 'is_active', 'is_superuser')}
+        ),
+    )
+    search_fields = ('email',)
+    ordering = ('email',)
 
-class AccountAdmin(UserAdmin):
-	list_display = ('email','username', 'first_name', 'last_name','date_joined', 'last_login', 'is_admin','is_staff')
-	search_fields = ('email','username',)
-	readonly_fields=('id', 'date_joined', 'last_login')
 
-	filter_horizontal = ()
-	list_filter = ()
-	fieldsets = ()
-
-
-admin.site.register(Account, AccountAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)

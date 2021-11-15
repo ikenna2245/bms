@@ -2,7 +2,6 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 from .models import CustomUser
-from bootstrap_modal_forms.forms import BSModalModelForm
 
 class CustomUserCreationForm(UserCreationForm):
 
@@ -20,7 +19,7 @@ class CustomUserCreationForm(UserCreationForm):
         }
 
 
-class CustomUserChangeForm(UserChangeForm, BSModalModelForm):
+class CustomUserChangeForm(UserChangeForm):
 
     class Meta:
         model = CustomUser

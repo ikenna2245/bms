@@ -11,12 +11,18 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+import dj_database_url
+import django_heroku
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-# Quick-start development settings - unsuitable for production
+# Quick-start development settings - unsuitable for production 
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
@@ -40,8 +46,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'users',
     'installations',
+    'cloudinary',
 
 ]
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,3 +136,12 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGIN_URL = 'login'
+
+CLOUDINARY_URL= 'cloudinary://837582367346648:5_uWq6IMAkgb_yH6DvAA_EL_2GY@emkauz-it-services'
+
+cloudinary.config( 
+  cloud_name = "emkauz-it-services", 
+  api_key = "837582367346648", 
+  api_secret = "5_uWq6IMAkgb_yH6DvAA_EL_2GY" 
+)

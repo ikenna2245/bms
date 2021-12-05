@@ -1,0 +1,12 @@
+build:
+  docker:
+    web: Dockerfile
+    worker: Dockerfile
+run:
+  web: gunicorn bms.wsgi:application --bind 0.0.0.0:$PORT
+  worker: celery -A bms worker -l INFO --beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+release:
+  image: web
+  command:
+    - python manage.py collectstatic --noinput
+    - celery -A bms worker -l INFO --beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler

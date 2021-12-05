@@ -1,0 +1,40 @@
+version: "3.8"
+
+services:
+    web:
+        build: .
+        container_name: web
+        command: gunicorn bms.wsgi:application --bind 0.0.0.0:8000
+        expose:
+            - 8000
+    worker:
+        build: .
+        command: celery -A bms worker -l INFO 
+        volumes:
+            - .:/usr/src/app
+        environment:
+            - DEBUG=1
+            - DJANGO_ALLOWED_HOSTS=['localhost', '127.0.0.1', 'prostarglobal.herokuapp.com']
+            - CELERY_BROKER=os.environ.get("REDIS_URL")
+            - CELERY_BACKEND=os.environ.get("REDIS_URL")
+        depends_on:
+            - web
+    beat:
+        build: .
+        command: celery -A bms beat -l INFO --scheduler django_celery_beat.schedulers:DatabaseScheduler
+        volumes:
+            - .:/usr/src/app
+        environment:
+            - DEBUG=1
+            - DJANGO_ALLOWED_HOSTS=['localhost', '127.0.0.1', 'prostarglobal.herokuapp.com']
+            - CELERY_BROKER=os.environ.get("REDIS_URL")
+            - CELERY_BACKEND=os.environ.get("REDIS_URL")
+        depends_on:
+            - web
+            - worker
+    nginx:
+        build: ./nginx
+        ports:
+            - 8000:80
+        depends_on:
+            - web

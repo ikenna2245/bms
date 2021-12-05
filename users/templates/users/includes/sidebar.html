@@ -1,0 +1,58 @@
+    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
+      <div class="logo">
+        <a target="_blank" rel="noopener noreferrer" 
+           href="" class="simple-text logo-normal">
+          Prostar  Global Energy
+        </a>
+      </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item  active ">
+            <a class="nav-link" href="/">
+              <i class="material-icons">dashboard</i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'clients' %}">
+              <i class="material-icons">person</i>
+              <p>User Profile</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'location' %}">
+              <i class="material-icons">location_on</i>
+              <p>Locations</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'installation' %}">
+              <i class="material-icons">content_paste</i>
+              <p>Installations</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'report' %}">
+              <i class="material-icons">library_books</i>
+              <p>Report</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="{% url 'change-password' %}">
+              <i class="material-icons">settings</i>
+              <p>Change Password</p>
+            </a>
+          </li>
+          
+          {% if request.user.is_authenticated %}
+            <li class="nav-item ">
+            <a class="nav-link" href="{% url 'logout' %}" >
+              <i class="material-icons">directions_run</i>
+              <p>Logout</p>
+            </a>
+          </li>
+          {% endif %}
+          
+        </ul>
+      </div>
+    </div>

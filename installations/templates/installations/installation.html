@@ -1,0 +1,285 @@
+{% extends "users/layouts/base.html" %} {% load static %}
+
+{% block title %} Installation {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Add a new Installation</h4>
+                  <p class="card-category">Installation details</p>
+                </div>
+                <div class="card-body">
+                  {% if form.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                  <form enctype="multipart/form-data" method="post">  
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Installation Location</label>
+                          {{ form.location }}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Equipment Type</label>
+                          {{ form.equipment_type }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row" id='others_'>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Others </label>
+                          {{ form.equipment_others }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Brand Name</label>
+                          {{ form.brand_name }}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Technical Specification</label>
+                          {{ form.technical_specification }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Manufacture Date </label>
+                          {{ form.date_manufactured }}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Installation Date </label>
+                          {{ form.installation_date }}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Replacement Date</label>
+                            {{ form.replacement_date }}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Contact Person</label>
+                            {{ form.contact_person }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Equipment Status </label>
+                            {{ form.equipment_status }}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Engineer</label>
+                            {{ form.engineer }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Remark </label>
+                            {{ form.remark }}
+                          </div>
+                        </div>
+                      </div>
+                      <div>
+                        <label for="id_photo">Choose photo to upload</label>
+                        {{ form.photo }}
+                      </div>
+                    <button type="submit" class="btn btn-primary pull-right">Add Installation</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">General Installations</h4>
+                  <p class="card-category"> Installation Info</p>
+                </div>
+                <div class="card-body">
+                  <input type="text" class="form-control" id="search" placeholder="Type to search">
+                  <div class="table-responsive">
+                    <table class="table" id='installation-table'>
+                      <thead class=" text-primary">
+                        <th>
+                          Branch ID
+                        </th>
+                        <th>
+                          Equipment Type
+                        </th>
+                        <th>
+                          Brand Name
+                        </th>
+                        <th>
+                          Specification
+                        </th>
+                        <th>
+                          Installation Date
+                        </th>
+                        <th>
+                          Manufacture Date
+                        </th>
+                        <th>
+                          Replacement Date
+                        </th>
+                        <th>
+                          Contact Person
+                        </th>
+                        <th>
+                          Status
+                        </th>
+                        <th>
+                          Engineer
+                        </th>
+                        <th>
+                         Remark
+                        </th>
+                        <th>
+                          photo
+                        </th>
+                        <th>
+                          Actions
+                        </th>
+                      </thead>
+                      <tbody>
+                        {% for installation in installations %}  
+                        <tr>
+                          <td>
+                            {{ installation.location.branch_id }}
+                          </td>
+                          <td>
+                            {{ installation.get_equipment_type_display}}
+                          </td>
+                          <td>
+                            {{ installation.brand_name }}
+                          </td>
+                          <td>
+                            {{ installation.technical_specification }} 
+                          </td>
+                          <td>
+                            {{ installation.installation_date }}
+                          </td>
+                          <td>
+                            {{ installation.date_manufactured }}
+                          </td>
+                          <td>
+                            {{ installation.replacement_date }}
+                          </td>
+                          <td>
+                            {{ installation.contact_person }}
+                          </td>
+                          <td>
+                            {{ installation.get_equipment_status_display }}
+                          </td>
+                          <td>
+                            {{ installation.engineer.first_name }}
+                          </td>
+                          <td>
+                            {{ installation.remark }}
+                          </td>
+                          <td>
+                            <a target="_blank" href="{{ installation.photo.url }}"> view photo</a>
+                            
+                          </td>
+                          <td>
+                            <a href="{% url 'updateInstallation' installation.id %}"  class="btn btn-sm btn-primary" >
+                              <span class="fa fa-pencil"></span>
+                            </a> | <a href="{% url 'deleteInstallation' installation.id %}" class="btn btn-sm btn-primary" >
+                              <span class="fa fa-trash"></span>
+                            </a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="pagination-area d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="pagination-cont">
+                        Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </div>
+                    <ul class="pagination">
+                        <li>
+                            {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a> {% endif %}
+                        </li>
+                        <li>
+                            <a href="?page={{ page_obj.number }}" class="active">{{ page_obj.number }} </a>
+                        </li>
+                        <li>
+                            {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a> {% endif %}
+                        </li>
+                    </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+  var $rows = $('#installation-table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+
+document.addEventListener('DOMContentLoaded', () =>{
+      document.getElementById('others_').style.display = 'none';
+});
+
+document.getElementById('id_equipment_type').addEventListener('change', ()=>{
+  var value = document.getElementById('id_equipment_type').value;
+  if (value == 'OT') {
+    document.getElementById('others_').style.display = 'block';
+    
+  }
+  else {
+    document.getElementById('others_').style.display = 'none';
+  }
+  
+})
+</script>
+{% endblock javascripts %}

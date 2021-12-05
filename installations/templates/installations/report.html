@@ -1,0 +1,153 @@
+{% extends "users/layouts/base.html" %}
+{% load static %}
+{% block title %} Report {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Add a new Report</h4>
+                  <p class="card-category">Report details</p>
+                </div>
+                <div class="card-body">
+                  {% if form.errors %}
+                    <div class="alert alert-warning" role="alert">
+                        {{ form.errors }}
+                    </div>
+                    {% endif %}
+                  <form method="post" action="{% url 'report' %}">  
+                    {% csrf_token %}
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Engineer</label>
+                          {{ form.engineer}}
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Installation</label>
+                          {{ form.installation}}
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Report</label>
+                          {{ form.report }}
+                        </div>
+                      </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary pull-right">Create Report</button>
+                    <div class="clearfix"></div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header card-header-primary">
+                  <h4 class="card-title">Installation Report</h4>
+                  <p class="card-category"> Report Details</p>
+                </div>
+                <div class="card-body">
+                  <input type="text" class="form-control" id="search" placeholder="Type to search">
+                  <div class="table-responsive">
+                    <table class="table" id='report-table'>
+                      <thead class=" text-primary">
+                        <th>
+                          Engineer
+                        </th>
+                        <th>
+                          Installation Type
+                        </th>
+                        <th>
+                          Installation Location
+                        </th>
+                        <th>
+                          Report
+                        </th>
+                        <th>
+                          Actions
+                        </th>
+                      </thead>
+                      <tbody>
+                        {% for report in reports %}  
+                        <tr>
+                          <td>
+                            {{ report.engineer.first_name }} {{ report.engineer.last_name }}
+                          </td>
+                          <td>
+                            {{ report.installation.equipment_type }}
+                          </td>
+                          <td>
+                            {{ report.installation.location.address }}
+                          </td>
+                          <td>
+                            {{ report.report }}
+                          </td>
+                          <td>
+                            <a href="{% url 'updateReport' report.id %}"  class="btn btn-sm btn-primary" >
+                              <span class="fa fa-pencil"></span>
+                            </a> | <a href="{% url 'deleteReport' report.id %}" class="btn btn-sm btn-primary" >
+                              <span class="fa fa-trash"></span>
+                            </a>
+                          </td>
+                        </tr>
+                        {% endfor %}
+                      </tbody>
+                    </table>
+                  </div>
+                  <div class="pagination-area d-flex flex-wrap justify-content-between align-items-center">
+                    <div class="pagination-cont">
+                        Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                    </div>
+                    <ul class="pagination">
+                        <li>
+                            {% if page_obj.has_previous %}
+                            <a href="?page=1">&laquo; first</a>
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a> {% endif %}
+                        </li>
+                        <li>
+                            <a href="?page={{ page_obj.number }}" class="active">{{ page_obj.number }} </a>
+                        </li>
+                        <li>
+                            {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">next</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a> {% endif %}
+                        </li>
+                    </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script>
+  var $rows = $('#report-table tr');
+$('#search').keyup(function() {
+    var val = $.trim($(this).val()).replace(/ +/g, ' ').toLowerCase();
+    
+    $rows.show().filter(function() {
+        var text = $(this).text().replace(/\s+/g, ' ').toLowerCase();
+        return !~text.indexOf(val);
+    }).hide();
+});
+</script>
+{% endblock javascripts %}

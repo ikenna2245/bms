@@ -1,0 +1,236 @@
+{% extends "users/layouts/base.html" %}
+{% load static %}
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.1/dist/chart.min.js"></script>
+{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="row">
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-header card-header-warning card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">content_copy</i>
+            </div>
+            <p class="card-category">Total Clients</p>
+            <h3 class="card-title">{{ clients }}
+              <small></small>
+            </h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-info">people</i>
+              <a href="{% url 'clients' %}">View Clients</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-header card-header-success card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">store</i>
+            </div>
+            <p class="card-category">Locations</p>
+            <h3 class="card-title">{{ locations }}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">location_on</i> 
+               <a href="{% url 'location' %}">View Locations</a> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-header card-header-danger card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">info_outline</i>
+            </div>
+            <p class="card-category">Faulty Installation</p>
+            <h3 class="card-title">{{ faulty_installations }}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">local_offer</i> 
+              <a href="{% url 'installation' %} ">View Installations</a> 
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-header card-header-info card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons"> groups</i>
+            </div>
+            <p class="card-category">Employees</p>
+            <h3 class="card-title">{{ staffs }}</h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons">people</i> 
+              Number of Staff
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-tabs card-header-primary">
+            <div class="nav-tabs-navigation">
+              <div class="nav-tabs-wrapper">
+                <span class="nav-tabs-title">Showing the total count of Installation Equipment Types</span>
+              </div>
+            </div>
+          </div>
+          <div class="card-body">
+            <canvas id="chart" ></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-warning">
+            <h4 class="card-title"></h4>
+            <p class="card-category">Total Installation by Months</p>
+          </div>
+          <div class="card-body ">
+            <canvas id="chart1" ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-warning">
+            <h4 class="card-title">Location</h4>
+            <p class="card-category"> Last 5 Added Locations</p>
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-hover">
+              <thead class="text-warning">
+                <th> Branch ID</th>
+                <th>State</th>
+                <th>Address</th>
+                <th>Client</th>
+              </thead>
+              <tbody>
+                
+                {% for l in locations_all  %}
+                  <tr>
+                  <td>{{ l.branch_id }}</td>
+                  <td>{{ l.get_state_display }}</td>
+                  <td>{{ l.address }}</td>
+                  <td>{{ l.clients.first_name }} {{ l.clients.last_name }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-warning">
+            <h4 class="card-title"> Installations</h4>
+            <p class="card-category">Last 5 Installations</p>
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-hover">
+              <thead class="text-warning">
+                <th>Branch ID</th>
+                <th>Equipment_Name</th>
+                <th>Equipment Status</th>
+                <th>Replacement Date</th>
+                <th>Engineer</th>
+              </thead>
+              <tbody>
+                
+                {% for i in installations  %}
+                  <tr>
+                  <td>{{ i.location.branch_id }}</td>
+                  <td>{{ i.get_equipment_type_display }}</td>
+                  <td>{{ i.get_equipment_status_display }}</td>
+                  <td>{{ i.replacement_date }}</td>
+                  <td>{{ i.engineer.first_name }} {{ i.engineer.last_name }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+                  const ct = document.getElementById('chart').getContext('2d');
+                  const chart = new Chart(ct, {
+                      type: 'bar',
+                      data: {
+                          labels: ['UPS', 'UPS Battery', 'Power Inverter', 'Power Inverter Battery', 'Surge Protector', 'Power Generator', 
+                                    'GE W $ E','GTO', 'Battery Rack Type', 'AVS Switcher', 'Others'],
+                          datasets: [{
+                              label: 'Total of Installation Equipment Type',
+                              data: ['{{ UPS }}', '{{ UPS_Battery }}', '{{ Power_Inverter }}','{{ Power_Inverter_Battery }}', 
+                                    '{{ Surge_Protector }}', '{{ Power_Generator }}', '{{ G_E }}', '{{ GTO }}', '{{ Battery_Rack_Type }}', '{{ AVS_Switcher}}', '{{ Others }}'],
+                              backgroundColor: [
+                                  'rgba(54, 162, 235, 0.2)',
+                              ],
+                              borderColor: [
+                                  'rgba(54, 162, 235, 1)',
+                              ],
+                              borderWidth: 1
+                          }]
+                      },
+                      options: {
+                          responsive: true,
+                          scales: {
+                              y: {
+                                  beginAtZero: true
+                              }
+                          }
+                      }
+                  });
+                  const ctx = document.getElementById('chart1').getContext('2d');
+                  const chart1 = new Chart(ctx, {
+                      type: 'line',
+                      data: {
+                          labels: [{% for i in info %} '{{ i.month }}', {% endfor %}],
+                          datasets: [{
+                              label: 'Total Installation',
+                              data: [{% for i in info %} {{ i.c }}, {% endfor %}],
+                              backgroundColor: [
+                                  'rgba(255, 99, 132, 0.2)',
+                                 
+                              ],
+                              borderColor: [
+                                  'rgba(255, 99, 132, 1)',
+                                  
+                              ],
+                              borderWidth: 1
+                          }]
+                      },
+                      options: {
+                          responsive: true,
+                          scales: {
+                              y: {
+                                  beginAtZero: true
+                              }
+                          }
+                      }
+                  });
+    </script>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+
+{% endblock javascripts %}

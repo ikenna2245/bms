@@ -1,0 +1,66 @@
+{% extends "users/layouts/base.html" %}
+
+{% block title %} Login {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+  <div class="row">
+    <div class="col-md-5">
+      <div class="card">
+        <div class="card-header card-header-primary">
+          <h4 class="card-title">
+            Login
+          </h4>
+        </div>
+        <div class="card-body">
+
+          <h6 class="card-category">
+              Enter your Email and Password
+          </h6>
+          <br />
+          <form r method="POST"  action="{%  url 'login' %}">
+              {% csrf_token %}
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Email Address</label>
+                  <input type="email" class="form-control" name="email" placeholder="email">
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label class="bmd-label-floating">Password</label>
+                  <input type="password" name="password" class="form-control" placeholder="Password">
+                </div>
+              </div>
+            </div>
+
+            <br />
+
+            <button type="submit" name="login" class="btn btn-primary pull-left">Login</button>
+
+            &nbsp; &nbsp; 
+            <span class="pull-right">
+              Forgotten Password? <a href="{% url 'password_reset' %}" class="text-primary">Reset</a>
+            </span>
+
+            <div class="clearfix"></div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

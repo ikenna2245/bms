@@ -56,7 +56,7 @@ def clients(request):
                 email = form.cleaned_data.get('email')
                 password = form.cleaned_data.get('password1')
                 first_name = form.cleaned_data.get('first_name')
-                send_registration_email_task(email, password, first_name).delay()
+                send_registration_email_task.delay(email, password, first_name)
                 return redirect('clients')
         context = {
             'form':form, 

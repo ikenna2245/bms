@@ -6,8 +6,7 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-<button type="button" id="report_btn" class="btn btn-primary mb-4">Create Report</button>
-          <div class="row d-none" id="report-form">
+          <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
@@ -149,14 +148,5 @@ $('#search').keyup(function() {
         return !~text.indexOf(val);
     }).hide();
 });
-
-document.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('report_btn').style.display= 'block';
-});
-
-document.getElementById('report_btn').addEventListener('click', ()=>{
-    document.getElementById('report_form').classList.remove('d-none');
-    document.getElementById('report_btn').style.display= 'none';
-  });
 </script>
 {% endblock javascripts %}

@@ -7,79 +7,105 @@
 
 {% block content %}
 
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Update {{ form.branch.value }}</h4>
+        <p class="card-category">Location details</p>
+      </div>
+      <div class="card-body">
+        {% if form.errors %}
+          <div class="alert alert-warning" role="alert">
+              {{ form.errors }}
+          </div>
+          {% endif %}
+        <form method="post">  
+          {% csrf_token %}
           <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Add a new Location</h4>
-                  <p class="card-category">Location details</p>
-                </div>
-                <div class="card-body">
-                  {% if form.errors %}
-                    <div class="alert alert-warning" role="alert">
-                        {{ form.errors }}
-                    </div>
-                    {% endif %}
-                  <form method="post">  
-                    {% csrf_token %}
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Branch ID</label>
-                          {{ form.branch_id}}
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">State</label>
-                          {{ form.state}}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Adress</label>
-                          {{ form.address }}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">Clients</label>
-                            {{ form.clients }}
-                          </div>
-                        </div>
-                      </div>
-                    <button type="submit" class="btn btn-primary pull-right">Update Location</button>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">Branch</label>
+                {{ form.branch}}
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">SOD ID</label>
+                {{ form.branch_id}}
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">State</label>
+                {{ form.state}}
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="bmd-label-floating">Adress</label>
+                {{ form.address }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">Region</label>
+                {{ form.region }}
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">CUG Number</label>
+                {{ form.cug_num1}}
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label class="bmd-label-floating">CUG Number additional</label>
+                {{ form.cug_num2 }}
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group">
+              <div class="col-md-12">
+                <label class="bmd-label-floating mr-4"> Regional Office:   </label>
+                {{ form.regional_office }}
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary pull-right">Update Location</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
           <div class="row">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
                   <h4 class="card-title">{{ form.branch_id.value }} Installations</h4>
-                  <p class="card-category"> Installation Info</p>
+                  <p class="card-category"> {{ form.address.value }}</p>
                 </div>
                 <div class="card-body">
                   <input type="text" class="form-control" id="search" placeholder="Type to search">
                   <div class="table-responsive">
                     <table class="table" id='installation-table'>
                       <thead class=" text-primary">
-                      <!--   <th>
+                        <!-- <th>
                           Branch ID
-                        </th> 
-                        <th>
-                          Business Name
-                        </th> --> 
+                        </th> -->
                         <th>
                           Equipment Type
+                        </th>
+                        <th>
+                          Quantity
                         </th>
                         <th>
                           Brand Name
@@ -97,13 +123,13 @@
                           Replacement Date
                         </th>
                         <th>
+                          Life Span
+                        </th>
+                        <th>
                           Contact Person
                         </th>
                         <th>
                           Status
-                        </th>
-                        <th>
-                          Engineer
                         </th>
                         <th>
                          Remark
@@ -117,20 +143,22 @@
                       </thead>
                       <tbody>
                         {% for installation in installations %}  
-                       <!--  <tr>
-                          <td>
+                        <tr>
+                       <!--   <td>
                             {{ installation.location.branch_id }}
-                          </td>
-                           
-                             <td>
-                            {{ installation.location.clients.business_name }}
-                          </td>
-                        -->
+                          </td>-->
                           <td>
-                            {{ installation.get_equipment_type_display}}
+                            {{ installation.get_equipment_type_display }}
                           </td>
                           <td>
-                            {{ installation.brand_name }}
+                            {{ installation.quantity }}
+                          </td>
+                          <td>
+                            {% if installation.brand_name != 'none' %}
+                            {{ installation.get_brand_name_display }}
+                            {% else %}
+                            {{ installation.brand_others}}
+                            {% endif %} 
                           </td>
                           <td>
                             {{ installation.technical_specification }} 
@@ -145,13 +173,13 @@
                             {{ installation.replacement_date }}
                           </td>
                           <td>
+                            {{ installation.get_life_span_display}}
+                          </td>
+                          <td>
                             {{ installation.contact_person }}
                           </td>
                           <td>
                             {{ installation.get_equipment_status_display }}
-                          </td>
-                          <td>
-                            {{ installation.engineer.first_name }}
                           </td>
                           <td>
                             {{ installation.remark }}
@@ -161,6 +189,8 @@
                             
                           </td>
                           <td>
+                            <a href="{% url 'viewInstallation' installation.id %}"  class="btn btn-sm btn-primary" >
+                              <span class="fa fa-eye"> </span>
                             <a href="{% url 'updateInstallation' installation.id %}"  class="btn btn-sm btn-primary" >
                               <span class="fa fa-pencil"></span>
                             </a> | <a href="{% url 'deleteInstallation' installation.id %}" class="btn btn-sm btn-primary" >
@@ -196,6 +226,8 @@
               </div>
             </div>
         </div>
+      
+
 
 
 

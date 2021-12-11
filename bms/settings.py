@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = int(os.environ.get('DEBUG'), False)
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'prostarglobal.herokuapp.com']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True
@@ -165,9 +165,9 @@ LOGIN_URL = 'login'
 CLOUDINARY_URL= os.environ.get('CLOUDINARY_URL')
 
 cloudinary.config( 
-  cloud_name = "emkauz-it-services", 
-  api_key = "837582367346648", 
-  api_secret = "5_uWq6IMAkgb_yH6DvAA_EL_2GY" 
+  cloud_name = os.environ.get('CLOUD_NAME'),
+  api_key = os.environ.get('CLOUD_API_KEY'), 
+  api_secret = os.environ.get('CLOUD_API_SECRET') 
 )
 
 

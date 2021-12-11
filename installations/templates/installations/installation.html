@@ -6,7 +6,8 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-          <div class="row">
+<button type="button" id="install_btn" class="btn btn-primary mb-4">Create Installation</button>
+          <div class="row d-none" id="install_form">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
@@ -35,7 +36,7 @@
                         </div>
                       </div>
                     </div>
-                    <div class="row" id='others_'>
+                    <div class="row d-none" id='others_'>
                       <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Others </label>
@@ -43,66 +44,79 @@
                         </div>
                       </div>
                     </div>
+                    
                     <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Quantity</label>
+                          {{ form.quantity }}
+                        </div>
+                      </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Brand Name</label>
                           {{ form.brand_name }}
                         </div>
                       </div>
-                      <div class="col-md-6">
+                    </div>
+                    <div class="row d-none" id='others_b'>
+                      <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Technical Specification</label>
-                          {{ form.technical_specification }}
+                          <label class="bmd-label-floating">Other Brand Names</label>
+                          {{ form.brand_others }}
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-6">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Technical Specification</label>
+                        {{ form.technical_specification }}
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label class="bmd-label-floating">Life Span</label>
+                        {{ form.life_span }}
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Manufacture Date </label>
+                          <label class="bmd-label-floating">Manufacture Date</label>
                           {{ form.date_manufactured }}
                         </div>
                       </div>
-                      <div class="col-md-6">
+                      <div class="col-sm-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Installation Date </label>
                           {{ form.installation_date }}
                         </div>
                       </div>
+                      <div class="col-sm-4">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Replacement Date</label>
+                          {{ form.replacement_date }}
+                        </div>
+                      </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">Replacement Date</label>
-                            {{ form.replacement_date }}
-                          </div>
-                        </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-4">
                           <div class="form-group">
                             <label class="bmd-label-floating">Contact Person</label>
                             {{ form.contact_person }}
                           </div>
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-sm-4">
                           <div class="form-group">
                             <label class="bmd-label-floating">Equipment Status </label>
                             {{ form.equipment_status }}
                           </div>
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-sm-4">
                           <div class="form-group">
-                            <label class="bmd-label-floating">Engineer</label>
-                            {{ form.engineer }}
-                          </div>
-                        </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">Remark </label>
+                            <label class="bmd-label-floating">Remark</label>
                             {{ form.remark }}
                           </div>
                         </div>
@@ -132,10 +146,13 @@
                     <table class="table" id='installation-table'>
                       <thead class=" text-primary">
                         <th>
-                          Branch ID
+                          SOL ID
                         </th>
                         <th>
                           Equipment Type
+                        </th>
+                        <th>
+                          Quantity
                         </th>
                         <th>
                           Brand Name
@@ -153,13 +170,13 @@
                           Replacement Date
                         </th>
                         <th>
+                          Life Span
+                        </th>
+                        <th>
                           Contact Person
                         </th>
                         <th>
                           Status
-                        </th>
-                        <th>
-                          Engineer
                         </th>
                         <th>
                          Remark
@@ -178,10 +195,17 @@
                             {{ installation.location.branch_id }}
                           </td>
                           <td>
-                            {{ installation.get_equipment_type_display}}
+                            {{ installation.get_equipment_type_display }}
                           </td>
                           <td>
-                            {{ installation.brand_name }}
+                            {{ installation.quantity }}
+                          </td>
+                          <td>
+                            {% if installation.brand_name != 'none' %}
+                            {{ installation.get_brand_name_display }}
+                            {% else %}
+                            {{ installation.brand_others}}
+                            {% endif %} 
                           </td>
                           <td>
                             {{ installation.technical_specification }} 
@@ -196,13 +220,13 @@
                             {{ installation.replacement_date }}
                           </td>
                           <td>
+                            {{ installation.get_life_span_display}}
+                          </td>
+                          <td>
                             {{ installation.contact_person }}
                           </td>
                           <td>
                             {{ installation.get_equipment_status_display }}
-                          </td>
-                          <td>
-                            {{ installation.engineer.first_name }}
                           </td>
                           <td>
                             {{ installation.remark }}
@@ -212,6 +236,8 @@
                             
                           </td>
                           <td>
+                            <a href="{% url 'viewInstallation' installation.id %}"  class="btn btn-sm btn-primary" >
+                              <span class="fa fa-eye"> </span>
                             <a href="{% url 'updateInstallation' installation.id %}"  class="btn btn-sm btn-primary" >
                               <span class="fa fa-pencil"></span>
                             </a> | <a href="{% url 'deleteInstallation' installation.id %}" class="btn btn-sm btn-primary" >
@@ -265,21 +291,35 @@ $('#search').keyup(function() {
         return !~text.indexOf(val);
     }).hide();
 });
-
-document.addEventListener('DOMContentLoaded', () =>{
-      document.getElementById('others_').style.display = 'none';
-});
-
 document.getElementById('id_equipment_type').addEventListener('change', ()=>{
   var value = document.getElementById('id_equipment_type').value;
   if (value == 'OT') {
-    document.getElementById('others_').style.display = 'block';
+    document.getElementById('others_').classList.remove('d-none');
     
   }
   else {
-    document.getElementById('others_').style.display = 'none';
+    document.getElementById('others_').classList.add('d-none');
   }
-  
-})
+});
+
+document.getElementById('id_brand_name').addEventListener('change', ()=>{
+  var value = document.getElementById('id_brand_name').value;
+  if (value == 'OT') {
+    document.getElementById('others_b').classList.remove('d-none');
+    
+  }
+  else {
+    document.getElementById('others_b').classList.add('d-none');
+  }  
+});
+
+document.addEventListener('DOMContentLoaded', () =>{
+      document.getElementById('location_btn').style.display= 'block';
+});
+
+document.getElementById('install_btn').addEventListener('click', ()=>{
+    document.getElementById('install_form').classList.remove('d-none');
+    document.getElementById('install_btn').style.display= 'none';
+  });
 </script>
 {% endblock javascripts %}

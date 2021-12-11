@@ -18,6 +18,7 @@ def index(request):
         context = {
             'clients': CustomUser.objects.filter(user_status='C').count(),
             'locations': Location.objects.all().count(),
+            'report': Report.objects.all().count(),
             'faulty_installations': Installation.objects.filter(equipment_status = 'B').count(),
             'staffs': CustomUser.objects.filter(user_status='S').count(),
             'installations': Installation.objects.all().order_by('-installation_date')[:5],
@@ -28,10 +29,9 @@ def index(request):
             'Power_Inverter Battery': Installation.objects.filter(equipment_type = 'PIB').count(), 
             'Surge_Protector': Installation.objects.filter(equipment_type = 'SP').count(),  
             'Power_Generator': Installation.objects.filter(equipment_type = 'PG').count(), 
-            'GE': Installation.objects.filter(equipment_type = 'GE').count(), 
-            'GTO': Installation.objects.filter(equipment_type = 'GTO').count(),  
-            'Battery_Rack_Type': Installation.objects.filter(equipment_type = 'BRT').count(),  
-            'AVS_Switcher': Installation.objects.filter(equipment_type = 'AS').count(),  
+            'Voltage_Regulator ': Installation.objects.filter(equipment_type = 'VR').count(), 
+            'Bypass_Switch': Installation.objects.filter(equipment_type = 'BS').count(),  
+            'Solar_Panel ': Installation.objects.filter(equipment_type = 'SOP').count(),  
             'Others': Installation.objects.filter(equipment_type = 'OT').count(), 
             'info':info,
         }

@@ -35,7 +35,7 @@ def updateLocation (request, pk):
         location = Location.objects.get(id=pk)
         form = LocationForm(instance = location)
         if request.method == 'POST':
-            l_form =  LocationForm(request.POST, instance = location)
+            l_form = LocationForm(request.POST, instance = location)
             if l_form.is_valid():
                 l_form.save()
                 messages.success(request, 'Update: Location has been updated')
@@ -47,6 +47,7 @@ def updateLocation (request, pk):
         return render(request, 'installations/location_update.html', context)
     else:
         return redirect('change-password')
+
 
 @login_required()
 def deleteLocation (request, pk):
@@ -102,6 +103,17 @@ def updateInstallation(request, pk):
         return redirect('change-password')
 
 @login_required()
+def viewInstallation(request, pk):
+    if request.user.is_password_changed:
+        installation = Installation.objects.get(pk=pk)
+        context = { 
+            'installation': installation,
+            }
+        return render(request, 'installations/installation_view.html', context)
+    else:
+        return redirect('change-password')
+
+@login_required()
 def deleteInstallation (request, pk):
     if request.user.is_password_changed:
         installation = Installation.objects.get(pk=pk)
@@ -123,7 +135,7 @@ def report(request):
             form = ReportForm(request.POST)
             if form.is_valid():
                 form.save()
-                messages.success(request, 'Added: Installation has been added')
+                messages.success(request, 'Added: Report has been added')
                 return redirect('report')
         context = {
             'form': form, 
@@ -137,7 +149,7 @@ def report(request):
 @login_required()
 def updateReport(request, pk):
     if request.user.is_password_changed:
-        form = ReportForm(instance=Installation.objects.get(pk=pk))
+        form = ReportForm(instance=Report.objects.get(pk=pk))
         if request.method == 'POST':
             i_form = ReportForm(request.POST, instance=Report.objects.get(pk=pk))
             if i_form.is_valid():

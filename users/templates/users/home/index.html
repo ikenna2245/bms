@@ -10,7 +10,7 @@
 {% block content %}
 
     <div class="row">
-      <div class="col-lg-3 col-md-6 col-sm-6">
+      <!-- <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-header card-header-warning card-header-icon">
             <div class="card-icon">
@@ -28,7 +28,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <div class="col-lg-3 col-md-6 col-sm-6">
         <div class="card card-stats">
           <div class="card-header card-header-success card-header-icon">
@@ -80,6 +80,25 @@
           </div>
         </div>
       </div>
+      <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="card card-stats">
+          <div class="card-header card-header-warning card-header-icon">
+            <div class="card-icon">
+              <i class="material-icons">summarize</i>
+            </div>
+            <p class="card-category">Reports</p>
+            <h3 class="card-title">{{ report }}
+              <small></small>
+            </h3>
+          </div>
+          <div class="card-footer">
+            <div class="stats">
+              <i class="material-icons text-info">summarize</i>
+              <a href="{% url 'report' %}">View Reports</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="row">
       <div class="col-lg-6 col-md-12">
@@ -118,19 +137,21 @@
           <div class="card-body table-responsive">
             <table class="table table-hover">
               <thead class="text-warning">
-                <th> Branch ID</th>
+                <th> Branch</th>
+                <th> SOL ID</th>
                 <th>State</th>
                 <th>Address</th>
-                <th>Client</th>
+                <th>Region</th>
               </thead>
               <tbody>
                 
                 {% for l in locations_all  %}
                   <tr>
+                  <td>{{ l.branch }}</td>
                   <td>{{ l.branch_id }}</td>
                   <td>{{ l.get_state_display }}</td>
                   <td>{{ l.address }}</td>
-                  <td>{{ l.clients.first_name }} {{ l.clients.last_name }}</td>
+                  <td>{{ l.region }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -147,21 +168,25 @@
           <div class="card-body table-responsive">
             <table class="table table-hover">
               <thead class="text-warning">
-                <th>Branch ID</th>
+                <th>Branch</th>
                 <th>Equipment_Name</th>
+                <th>Brand</th>
                 <th>Equipment Status</th>
-                <th>Replacement Date</th>
-                <th>Engineer</th>
+                <th>Quantity</th>
+                <th>Installation Date</th>
               </thead>
               <tbody>
                 
                 {% for i in installations  %}
                   <tr>
-                  <td>{{ i.location.branch_id }}</td>
+                  <td>{{ i.location.branch }}</td>
                   <td>{{ i.get_equipment_type_display }}</td>
+                  <td> {% if i.brand_name == '0T' %}
+                    {{ i.brand_others }} {% else %} {{ i.get_brand_name_display }}
+                  {% endif %} </td>
                   <td>{{ i.get_equipment_status_display }}</td>
-                  <td>{{ i.replacement_date }}</td>
-                  <td>{{ i.engineer.first_name }} {{ i.engineer.last_name }}</td>
+                  <td>{{ i.quantity }}</td>
+                  <td>{{ i.installation_date }}</td>
                 </tr>
                 {% endfor %}
               </tbody>
@@ -176,11 +201,11 @@
                       type: 'bar',
                       data: {
                           labels: ['UPS', 'UPS Battery', 'Power Inverter', 'Power Inverter Battery', 'Surge Protector', 'Power Generator', 
-                                    'GE W $ E','GTO', 'Battery Rack Type', 'AVS Switcher', 'Others'],
+                                    'Voltage Regulator', 'Bypass Switch', 'Solar Panel', 'Others'],
                           datasets: [{
                               label: 'Total of Installation Equipment Type',
                               data: ['{{ UPS }}', '{{ UPS_Battery }}', '{{ Power_Inverter }}','{{ Power_Inverter_Battery }}', 
-                                    '{{ Surge_Protector }}', '{{ Power_Generator }}', '{{ G_E }}', '{{ GTO }}', '{{ Battery_Rack_Type }}', '{{ AVS_Switcher}}', '{{ Others }}'],
+                                    '{{ Surge_Protector }}', '{{ Power_Generator }}', '{{ Voltage_Regulator }}', '{{ Bypass_Switch }}', '{{ Solar_Panel }}', '{{ Others }}'],
                               backgroundColor: [
                                   'rgba(54, 162, 235, 0.2)',
                               ],

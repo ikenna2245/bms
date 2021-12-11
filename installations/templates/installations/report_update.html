@@ -20,7 +20,7 @@
                         {{ form.errors }}
                     </div>
                     {% endif %}
-                  <form method="post" action="{% url 'report' %}">  
+                  <form method="post">  
                     {% csrf_token %}
                     <div class="row">
                       <div class="col-md-6">

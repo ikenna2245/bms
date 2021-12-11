@@ -6,8 +6,8 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
-          <div class="row">
+<button type="button" id="report_btn" class="btn btn-primary mb-4">Create Report</button>
+          <div class="row d-none" id="report-form">
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
@@ -23,13 +23,7 @@
                   <form method="post" action="{% url 'report' %}">  
                     {% csrf_token %}
                     <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engineer</label>
-                          {{ form.engineer}}
-                        </div>
-                      </div>
-                      <div class="col-md-6">
+                      <div class="col-md-12">
                         <div class="form-group">
                           <label class="bmd-label-floating">Installation</label>
                           {{ form.installation}}
@@ -64,14 +58,17 @@
                   <div class="table-responsive">
                     <table class="table" id='report-table'>
                       <thead class=" text-primary">
-                        <th>
+                        <!-- <th>
                           Engineer
+                        </th> -->
+                        <th>
+                          SOD ID
+                        </th>
+                        <th>
+                          Branch
                         </th>
                         <th>
                           Installation Type
-                        </th>
-                        <th>
-                          Installation Location
                         </th>
                         <th>
                           Report
@@ -83,14 +80,17 @@
                       <tbody>
                         {% for report in reports %}  
                         <tr>
-                          <td>
+                          <!-- <td>
                             {{ report.engineer.first_name }} {{ report.engineer.last_name }}
+                          </td>  -->
+                          <td>
+                            {{ report.installation.location.branch_id }}
                           </td>
                           <td>
-                            {{ report.installation.equipment_type }}
+                            {{ report.installation.location.branch }}
                           </td>
                           <td>
-                            {{ report.installation.location.address }}
+                            {{ report.installation.get_equipment_type_display }}
                           </td>
                           <td>
                             {{ report.report }}
@@ -149,5 +149,14 @@ $('#search').keyup(function() {
         return !~text.indexOf(val);
     }).hide();
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('report_btn').style.display= 'block';
+});
+
+document.getElementById('report_btn').addEventListener('click', ()=>{
+    document.getElementById('report_form').classList.remove('d-none');
+    document.getElementById('report_btn').style.display= 'none';
+  });
 </script>
 {% endblock javascripts %}

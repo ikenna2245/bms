@@ -59,11 +59,11 @@ class Installation (models.Model):
     technical_specification = models.CharField(null=False, blank=False, max_length=120)
     date_manufactured = models.DateField(null=True, blank=True)
     installation_date = models.DateField(blank=False, null=False, default=timezone.now)
-    replacement_date = models.DateField(blank=False, null=False)
-    contact_person = models.CharField(null=False, blank=False, max_length=150)
+    replacement_date = models.DateField(blank=True, null=True)
+    contact_person = models.CharField(null=True, blank=True, max_length=150)
     equipment_status = models.CharField(null=False, blank=False, max_length=1, choices=STATUS_CHOICE, default='Good')
     engineer = models.ForeignKey(CustomUser, on_delete= models.SET_NULL, null=True, blank=True)
-    remark = models.CharField(null=False, blank=False, max_length=150)
+    remark = models.CharField(max_length=150)
     photo = CloudinaryField('image', null=True, blank=True)
 
     def __str__(self):

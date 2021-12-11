@@ -7,7 +7,7 @@ from cloudinary.models import CloudinaryField
 
 
 class Location (models.Model):
-    STATE_CHOICE = 	(('S', '-----------'),('AB', 'Abia'), ('FCT',' Abuja') , ('AD', 'Adamawa'), ('AK', 'Akwa Ibom'), ('AN', 'Anambra'), ('BA', 'Bauchi'), ('BY', 'Bayelsa'), 
+    STATE_CHOICE = 	(('S', '-----------'),('AB', 'Abia'), ('FCT',' FCT') , ('AD', 'Adamawa'), ('AK', 'Akwa Ibom'), ('AN', 'Anambra'), ('BA', 'Bauchi'), ('BY', 'Bayelsa'), 
                     ('BE', 'Benue'), ('BO', 'Borno'), ('CR', 'Cross River'), ('DE', 'Delta'), ('EB', 'Ebonyi'), ('ED', 'Edo'), ('EK', 'Ekiti'), ('EN', 'Enugu'), 
                     ('GO', 'Gombe'), ('IM', 'Imo'), ('JI', 'Jigawa'), ('KD', 'Kaduna'), ('KN', 'Kano'), ('KT', 'Katsina'), ('KE', 'Kebbi'), ('KO', 'Kogi'), ('KW', 'Kwara'), 
                     ('LA', 'Lagos'), ('NA', 'Nasarawa'), ('NI', 'Niger'), ('OG', 'Ogun'), ('ON', 'Ondo'), ('OS', 'Osun'), ('OY', 'Oyo'), ('PL', 'Plateau'), ('RI', 'Rivers'), (
@@ -18,7 +18,7 @@ class Location (models.Model):
                     ('RB1', 'RIVER BAYELSA 1'), ('RB2', 'RIVER BAYELSA 2'), ('SW1', 'SOUTH WEST 1'), ('SW2', 'SOUTH WEST 2'), ('VI', 'VICTORIA ISLAND'))
     clients = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     branch = models.CharField(blank=True, null=True, max_length=250)
-    branch_id = models.CharField(blank=True, null=True, unique=True ,  max_length=15)
+    branch_id = models.CharField(blank=True, null=True,  max_length=15)
     cug_num1 = models.CharField(blank=True, null=True, max_length=14)
     cug_num2 = models.CharField(blank=True, null=True, max_length=14)
     state = models.CharField(null=False, blank=False, max_length=4, choices= STATE_CHOICE, default='S')

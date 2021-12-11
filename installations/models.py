@@ -18,7 +18,7 @@ class Location (models.Model):
                     ('RB1', 'RIVER BAYELSA 1'), ('RB2', 'RIVER BAYELSA 2'), ('SW1', 'SOUTH WEST 1'), ('SW2', 'SOUTH WEST 2'), ('VI', 'VICTORIA ISLAND'))
     clients = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     branch = models.CharField(blank=True, null=True, max_length=250)
-    branch_id = models.CharField(blank=True, null=True, max_length=15)
+    branch_id = models.CharField(blank=True, null=True, unique=True ,  max_length=15)
     cug_num1 = models.CharField(blank=True, null=True, max_length=14)
     cug_num2 = models.CharField(blank=True, null=True, max_length=14)
     state = models.CharField(null=False, blank=False, max_length=4, choices= STATE_CHOICE, default='S')

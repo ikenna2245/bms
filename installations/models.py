@@ -58,7 +58,7 @@ class Installation (models.Model):
     brand_others = models.CharField(null=True, blank=True, max_length=120)
     technical_specification = models.CharField(null=False, blank=False, max_length=120)
     date_manufactured = models.DateField(null=True, blank=True)
-    installation_date = models.DateField(blank=False, null=False, default=timezone.now)
+    installation_date = models.DateField(blank=True, null=True)
     replacement_date = models.DateField(blank=True, null=True)
     contact_person = models.CharField(null=True, blank=True, max_length=150)
     equipment_status = models.CharField(null=False, blank=False, max_length=1, choices=STATUS_CHOICE, default='Good')

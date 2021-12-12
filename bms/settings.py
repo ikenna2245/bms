@@ -26,15 +26,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = "podkjhjkijkjkjos.environ.get('SECRET_KEY')"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = int(os.environ.get('DEBUG'), False)
+DEBUG = False
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = ["*"]
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-SECURE_SSL_REDIRECT = True
+#SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+#SECURE_SSL_REDIRECT = True
 
 AUTH_USER_MODEL = 'users.CustomUser'
 

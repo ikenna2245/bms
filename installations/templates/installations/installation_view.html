@@ -6,7 +6,9 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
-
+<button class="btn btn-sm btn-primary pull-right" onclick="history.back()"> <span class="material-icons">
+  arrow_back
+  </span></button>
 <div class="row">
   <div class="col-md-6">
     <div class="card">
@@ -15,7 +17,6 @@
         <p class="card-category"> {{ installation.location.address }}</p>
       </div>
       <div class="card-body">
-        <input type="text" class="form-control" id="search" placeholder="Type to search">
         <div class="table-responsive">
           <table class="table" id='report-table'>
             <thead class=" text-primary">

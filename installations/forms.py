@@ -37,7 +37,7 @@ class InstallationForm(forms.ModelForm):
             'technical_specification' : forms.TextInput(attrs={'class':'form-control'}),
             'life_span': forms.Select(attrs={'class':'form-control'}),
             'date_manufactured': forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
-            'installation_date' : forms.DateInput(attrs={'required' :True, 'class':'form-control', 'type':'date'}),
+            'installation_date' : forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
             'replacement_date' : forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
             'contact_person' : forms.TextInput(attrs={'class':'form-control'}),
             'equipment_status' :  forms.Select(attrs={'required' :True, 'class':'form-control'}),

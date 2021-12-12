@@ -1,0 +1,143 @@
+{% extends "users/layouts/base.html" %}
+{% load static %}
+{% block title %} Report Update {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">{{ installation.location.branch }} - Branch Code: {{ installation.location.branch_id }}</h4>
+        <p class="card-category"> {{ installation.location.address }}</p>
+      </div>
+      <div class="card-body">
+        <input type="text" class="form-control" id="search" placeholder="Type to search">
+        <div class="table-responsive">
+          <table class="table" id='report-table'>
+            <thead class=" text-primary">
+              <th>
+                Parameters
+              </th>
+              <th>
+                Installation Details
+              </th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  Equipment Type
+                </td>
+                <td>
+                  {{ installation.get_equipment_type_display }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Quantity
+                </td>
+                <td>
+                  {{ installation.quantity }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Brand Name
+                </td>
+                <td>
+                  {% if installation.brand_name != 'none' %}
+                      {{ installation.get_brand_name_display }}
+                  {% else %}
+                      {{ installation.brand_others}}
+                  {% endif %} 
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Technical Specification
+                </td>
+                <td>
+                  {{ installation.technical_specification }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Installation Date
+                </td>
+                <td>
+                  {{ installation.installation_date }}
+                </td>
+              </tr>
+                <td>
+                  Manufacture Date
+                </td>
+                <td>
+                  {{ installation.date_manufactured}}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Replacement Date
+                </td>
+                <td>
+                  {{ installation.replacement_date }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Life Span
+                </td>
+                <td>
+                  {{ installation.get_life_span_display }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Contact Person
+                </td>
+                <td>
+                  {{ installation.contact_person }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Equipment Status
+                </td>
+                <td>
+                  {{ installation.get_equipment_status_display }}
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  Remark
+                </td>
+                <td>
+                  {{ installation.remark}}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <img src="{{ installation.photo.url }}" height=500 width=500 alt="{{ installation.get_equipment_type_display}}">
+  </div>
+</div>
+
+
+
+
+
+{% endblock content %}
+
+{% block javascripts %}
+
+{% endblock javascripts %}

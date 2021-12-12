@@ -18,93 +18,114 @@
                         {{ form.errors }}
                     </div>
                     {% endif %}
-                  <form enctype="multipart/form-data" method="post">  
-                    {% csrf_token %}
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Installation Location</label>
-                          {{ form.location }}
+                    <form enctype="multipart/form-data" method="post">  
+                      {% csrf_token %}
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Installation Location</label>
+                            {{ form.location }}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Equipment Type</label>
+                            {{ form.equipment_type }}
+                          </div>
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Equipment Type</label>
-                          {{ form.equipment_type }}
+                      <div class="row d-none" id='others_'>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Others </label>
+                            {{ form.equipment_others }}
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Brand Name</label>
-                          {{ form.brand_name }}
+                      
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Quantity</label>
+                            {{ form.quantity }}
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Brand Name</label>
+                            {{ form.brand_name }}
+                          </div>
                         </div>
                       </div>
+                      <div class="row d-none" id='others_b'>
+                        <div class="col-md-12">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Other Brand Names</label>
+                            {{ form.brand_others }}
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Technical Specification</label>
                           {{ form.technical_specification }}
                         </div>
                       </div>
-                    </div>
-                    <div class="row">
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Manufacture Date </label>
-                          {{ form.date_manufactured }}
+                          <label class="bmd-label-floating">Life Span</label>
+                          {{ form.life_span }}
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Installation Date </label>
-                          {{ form.installation_date }}
-                        </div>
                       </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Manufacture Date</label>
+                            {{ form.date_manufactured }}
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
+                          <div class="form-group">
+                            <label class="bmd-label-floating">Installation Date </label>
+                            {{ form.installation_date }}
+                          </div>
+                        </div>
+                        <div class="col-sm-4">
                           <div class="form-group">
                             <label class="bmd-label-floating">Replacement Date</label>
                             {{ form.replacement_date }}
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">Contact Person</label>
-                            {{ form.contact_person }}
-                          </div>
-                        </div>
                       </div>
                       <div class="row">
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">Equipment Status </label>
-                            {{ form.equipment_status }}
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Vendor Contact</label>
+                              {{ form.contact_person }}
+                            </div>
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Equipment Status </label>
+                              {{ form.equipment_status }}
+                            </div>
+                          </div>
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                              <label class="bmd-label-floating">Remark</label>
+                              {{ form.remark }}
+                            </div>
                           </div>
                         </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">Engineer</label>
-                            {{ form.engineer }}
-                          </div>
+                        <div>
+                          <label for="id_photo">Choose photo to upload</label>
+                          {{ form.photo }}
                         </div>
-                      </div>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <div class="form-group">
-                            <label class="bmd-label-floating">Remark </label>
-                            {{ form.remark }}
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <label for="id_photo">Choose photo to upload</label>
-                        {{ form.photo }}
-                      </div>
-                    <button type="submit" class="btn btn-primary pull-right">Update Installation</button>
-                    <div class="clearfix"></div>
-                  </form>
+                      <button type="submit" class="btn btn-primary pull-right">Add Installation</button>
+                      <div class="clearfix"></div>
+                    </form>
                 </div>
               </div>
             </div>
@@ -122,14 +143,17 @@
                   <div class="table-responsive">
                     <table class="table" id='report-table'>
                       <thead class=" text-primary">
-                        <th>
+                        <!-- <th>
                           Engineer
+                        </th> -->
+                        <th>
+                          SOD ID
+                        </th>
+                        <th>
+                          Branch
                         </th>
                         <th>
                           Installation Type
-                        </th>
-                        <th>
-                          Installation Location
                         </th>
                         <th>
                           Report
@@ -141,14 +165,17 @@
                       <tbody>
                         {% for report in reports %}  
                         <tr>
-                          <td>
+                          <!-- <td>
                             {{ report.engineer.first_name }} {{ report.engineer.last_name }}
+                          </td>  -->
+                          <td>
+                            {{ report.installation.location.branch_id }}
                           </td>
                           <td>
-                            {{ report.installation.equipment_type }}
+                            {{ report.installation.location.branch }}
                           </td>
                           <td>
-                            {{ report.installation.location.address }}
+                            {{ report.installation.get_equipment_type_display }}
                           </td>
                           <td>
                             {{ report.report }}

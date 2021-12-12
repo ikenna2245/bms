@@ -26,7 +26,7 @@ class InstallationForm(forms.ModelForm):
     class Meta:
         model = Installation
         fields = ('location', 'equipment_type', 'equipment_others', 'brand_name','brand_others', 'quantity', 'technical_specification','life_span', 'date_manufactured', 'installation_date',
-                     'replacement_date', 'equipment_status', 'remark', 'photo' )
+                     'contact_person','replacement_date', 'equipment_status', 'remark', 'photo' )
         
         widgets = {
             'equipment_type' : forms.Select(attrs={'required' :True, 'class':'form-control'}),
@@ -39,7 +39,7 @@ class InstallationForm(forms.ModelForm):
             'date_manufactured': forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
             'installation_date' : forms.DateInput(attrs={'required' :True, 'class':'form-control', 'type':'date'}),
             'replacement_date' : forms.DateInput(attrs={'class':'form-control', 'type':'date'}),
-            #'contact_person' : forms.TextInput(attrs={'required' :True, 'class':'form-control'}),
+            'contact_person' : forms.TextInput(attrs={'class':'form-control'}),
             'equipment_status' :  forms.Select(attrs={'required' :True, 'class':'form-control'}),
             'remark' : forms.TextInput(attrs={'required' :True, 'class':'form-control'}),
             'photo': forms.FileInput(attrs={'accept':"image/*", 'class':'form-control'})

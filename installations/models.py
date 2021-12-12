@@ -38,7 +38,7 @@ class Installation (models.Model):
     LIFE_SPAN_CHOICE = (('NR', 'Not Rated'), ('1L', '1-2 Years'), ('2L', '2-3 Years'), ('3L', '3-4 Years'), ('4L', '4-5 Years'), ('5L', '5-6 Years'), ('6L', '6-7 Years'), ('7L', '7-8 Years'), 
                         ('8L', '8-9 Years'), ('9L', '9-10 Years'),  ('2kL', '2-4 Years'), ('4kL', '4-6 Years'), ('6kL', '6-8 Years'), ('8kL', '8-10 Years'), ('2YL', '20-25 Years'), ('5YL', '25-30 Years'), ('10YL', '30-35 Years'), ('OT', 'Others')) 
                         
-    BRAND_CHOICE =(('', '---------------- Battery Brands----------------'), ('AMARON', 'AMARON'), ('ARCCHAR', 'ARCCHAR'), ('DAYSTAR', 'DAYSTAR'), ('E.P', 'E.P'), ('EVER EXCEED', 'EVER EXCEED'), ('FELICITY', 'FELICITY'), ('G.P', 'G.P'), ('GASTON', 'GASTON'),
+    BRAND_CHOICE =(('S', 'Select Brand'),('', '---------------- Battery Brands----------------'), ('AMARON', 'AMARON'), ('ARCCHAR', 'ARCCHAR'), ('DAYSTAR', 'DAYSTAR'), ('E.P', 'E.P'), ('EVER EXCEED', 'EVER EXCEED'), ('FELICITY', 'FELICITY'), ('G.P', 'G.P'), ('GASTON', 'GASTON'),
                     ('GENUS', 'GENUS'), ('HOPPECKE', 'HOPPECKE'), ('MECURY', 'MECURY'), ('MF', 'MF'), ('MONBAT', 'MONBAT'), ('MVR', 'MVR'), ('POWER PREM', 'POWER PREM'), ('POWER STAR', 'POWER STAR'), 
                     ('POWER V', 'POWER V'), ('PRIME SOLAR', 'PRIME SOLAR'), ('PROSTAR-LEMAX', 'PROSTAR-LEMAX'), ('QUANTA', 'QUANTA'), ('RITAR', 'RITAR'), ('SHOTO', 'SHOTO'), ('SURFIT', 'SURFIT'), 
                     ('TRATA', 'TRATA'), ('TROJAN SAGEM', 'TROJAN SAGEM'), ('TROJAN(SLIM)', 'TROJAN(SLIM)'), (' ', '---------------- Generator Brands ----------------'), ('C-POWER', 'C-POWER'), ('CUMMINS', 'CUMMINS'), ('FG WILSON', 'FG WILSON'), ('GHADDOR', 'GHADDOR'), ('HAT GLOBAL SP', 'HAT GLOBAL SP'),

@@ -7,50 +7,44 @@
 
 {% block content %}
 
+<div class="row">
+  <div class="col-md-12">
+    <div class="card">
+      <div class="card-header card-header-primary">
+        <h4 class="card-title">Update Report</h4>
+        <p class="card-category">Report details</p>
+      </div>
+      <div class="card-body">
+        {% if form.errors %}
+          <div class="alert alert-warning" role="alert">
+              {{ form.errors }}
+          </div>
+          {% endif %}
+        <form method="post" action="{% url 'report' %}">  
+          {% csrf_token %}
           <div class="row">
             <div class="col-md-12">
-              <div class="card">
-                <div class="card-header card-header-primary">
-                  <h4 class="card-title">Update Report</h4>
-                  <p class="card-category">Report details</p>
-                </div>
-                <div class="card-body">
-                  {% if form.errors %}
-                    <div class="alert alert-warning" role="alert">
-                        {{ form.errors }}
-                    </div>
-                    {% endif %}
-                  <form method="post">  
-                    {% csrf_token %}
-                    <div class="row">
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Engineer</label>
-                          {{ form.engineer}}
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Installation</label>
-                          {{ form.installation}}
-                        </div>
-                      </div>
-                    </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Report</label>
-                          {{ form.report }}
-                        </div>
-                      </div>
-                    </div>
-                    <button type="submit" class="btn btn-primary pull-right">Update Report</button>
-                    <div class="clearfix"></div>
-                  </form>
-                </div>
+              <div class="form-group">
+                <label class="bmd-label-floating">Location</label>
+                {{ form.location }}
               </div>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label class="bmd-label-floating">Report</label>
+                {{ form.report }}
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary pull-right">Update Report</button>
+          <div class="clearfix"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 
 

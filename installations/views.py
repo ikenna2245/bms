@@ -42,7 +42,8 @@ def updateLocation (request, pk):
                 return redirect('location')
         context = {
             'form': form, 
-            'installations':Installation.objects.filter(location=location)
+            'installations':Installation.objects.filter(location=location),
+            "reports": Report.objects.filter(location=location)
         }
         return render(request, 'installations/location_update.html', context)
     else:
@@ -64,8 +65,6 @@ def installation(request):
     if request.user.is_password_changed:
         form = InstallationForm()
         info = Installation.objects.all()
-        now = timezone.now().date()
-        print(f' date is : {now}')
         paginator = Paginator(Installation.objects.all().order_by('-installation_date'), 10)
         page_number = request.GET.get('page')
         page_obj = paginator.get_page(page_number)

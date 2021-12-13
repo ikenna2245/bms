@@ -47,10 +47,11 @@ class InstallationForm(forms.ModelForm):
 
 class ReportForm(forms.ModelForm):
     #engineer = forms.ModelChoiceField(queryset=CustomUser.objects.filter(user_status='E'), widget=forms.Select(attrs={'class':'form-control','required' :True}))
-    installation = forms.ModelChoiceField(queryset=Installation.objects.all(), widget=forms.Select(attrs={'class':'form-control','required' :True}))
+    #installation = forms.ModelChoiceField(queryset=Installation.objects.all(), widget=forms.Select(attrs={'class':'form-control','required' :True}))
+    location = forms.ModelChoiceField(queryset=Location.objects.all(), widget=forms.Select(attrs={'class':'form-control','required' :True}))
     class Meta:
         model = Report
-        fields = ('installation', 'report')
+        fields = ('location', 'report')
         widgets = {
             'report': forms.Textarea(attrs={'class':'form-control', 'required':True})
         }

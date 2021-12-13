@@ -90,7 +90,7 @@
             <div class="col-md-12">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">{{ form.branch_id.value }} Installations</h4>
+                  <h4 class="card-title">{{ form.branch.value }} Branch Installations</h4>
                   <p class="card-category"> {{ form.address.value }}</p>
                 </div>
                 <div class="card-body">
@@ -226,6 +226,91 @@
               </div>
             </div>
         </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header card-header-primary">
+                <h4 class="card-title"> {{ form.branch.value }} Branch Report</h4>
+                <p class="card-category"> Report Details</p>
+              </div>
+              <div class="card-body">
+                <input type="text" class="form-control" id="search" placeholder="Type to search">
+                <div class="table-responsive">
+                  <table class="table" id='report-table'>
+                    <thead class=" text-primary">
+                      <!-- <th>
+                        Engineer
+                      </th> -->
+                      <th>
+                        SOD ID
+                      </th>
+                      <th>
+                        Branch
+                      </th>
+                      <!-- <th>
+                        Installation Type
+                      </th> -->
+                      <th>
+                        Report
+                      </th>
+                      <th>
+                        Actions
+                      </th>
+                    </thead>
+                    <tbody>
+                      {% for report in reports %}  
+                      <tr>
+                        <!-- <td>
+                          {{ report.engineer.first_name }} {{ report.engineer.last_name }}
+                        </td>  -->
+                        <td>
+                          {{ report.location.branch_id }}
+                        </td>
+                        <td>
+                          {{ report.location.branch }}
+                        </td>
+                       <!-- <td>
+                          {{ report.installation.get_equipment_type_display }}
+                        </td> -->
+                        <td>
+                          {{ report.report }}
+                        </td>
+                        <td>
+                          <a href="{% url 'updateReport' report.id %}"  class="btn btn-sm btn-primary" >
+                            <span class="fa fa-pencil"></span>
+                          </a> | <a href="{% url 'deleteReport' report.id %}" class="btn btn-sm btn-primary" >
+                            <span class="fa fa-trash"></span>
+                          </a>
+                        </td>
+                      </tr>
+                      {% endfor %}
+                    </tbody>
+                  </table>
+                </div>
+                <div class="pagination-area d-flex flex-wrap justify-content-between align-items-center">
+                  <div class="pagination-cont">
+                      Showing page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                  </div>
+                  <ul class="pagination">
+                      <li>
+                          {% if page_obj.has_previous %}
+                          <a href="?page=1">&laquo; first</a>
+                          <a href="?page={{ page_obj.previous_page_number }}">previous</a> {% endif %}
+                      </li>
+                      <li>
+                          <a href="?page={{ page_obj.number }}" class="active">{{ page_obj.number }} </a>
+                      </li>
+                      <li>
+                          {% if page_obj.has_next %}
+                          <a href="?page={{ page_obj.next_page_number }}">next</a>
+                          <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a> {% endif %}
+                      </li>
+                  </ul>
+              </div>
+              </div>
+            </div>
+          </div>
+      </div>
       
 
 

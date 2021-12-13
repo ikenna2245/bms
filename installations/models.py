@@ -71,8 +71,9 @@ class Installation (models.Model):
 
 class Report (models.Model):
     engineer = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
-    installation = models.ForeignKey(Installation, on_delete=models.CASCADE)
+    installation = models.ForeignKey(Installation, on_delete=models.SET_NULL, null=True, blank=True)
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True, blank=True)
     report = models.CharField(null=False, blank=False, max_length=200)
     date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
-        return f'{self.installation.location.branch_id} - {self.installation.get_equipment_type_display()} - {self.report}'
+        return f'{self.location.branch_id} - {self.Location.branch} - {self.report}'

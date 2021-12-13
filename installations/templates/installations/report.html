@@ -24,8 +24,8 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Installation</label>
-                          {{ form.installation}}
+                          <label class="bmd-label-floating">Location</label>
+                          {{ form.location }}
                         </div>
                       </div>
                     </div>
@@ -66,9 +66,9 @@
                         <th>
                           Branch
                         </th>
-                        <th>
+                        <!-- <th>
                           Installation Type
-                        </th>
+                        </th> -->
                         <th>
                           Report
                         </th>
@@ -83,14 +83,14 @@
                             {{ report.engineer.first_name }} {{ report.engineer.last_name }}
                           </td>  -->
                           <td>
-                            {{ report.installation.location.branch_id }}
+                            {{ report.location.branch_id }}
                           </td>
                           <td>
-                            {{ report.installation.location.branch }}
+                            {{ report.location.branch }}
                           </td>
-                          <td>
+                         <!-- <td>
                             {{ report.installation.get_equipment_type_display }}
-                          </td>
+                          </td> -->
                           <td>
                             {{ report.report }}
                           </td>

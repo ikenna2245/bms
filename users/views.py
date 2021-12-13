@@ -10,6 +10,7 @@ from installations.models import Location, Installation, Report
 from .tasks import send_registration_email_task
 from django.db.models.functions import TruncMonth
 from django.db.models import Count
+
 # Create your views here.
 @login_required()
 def index(request):
@@ -74,7 +75,7 @@ def userUpdate(request, pk):
         p_form =  CustomUserChangeForm(request.POST, instance = CustomUser.objects.get(pk=pk))
         if p_form.is_valid():
             p_form.save()
-            messages.success(request, 'User updatewas successful')
+            messages.success(request, 'User update was successful')
             return redirect('clients')
     context = {
         'form': form, 
@@ -133,7 +134,6 @@ def changePassword (request):
 def userLogout(request):
     logout(request)
     return redirect('login')
-
 
 def error_404(request, exception):
     return render(request, '404.html')

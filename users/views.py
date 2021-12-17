@@ -15,7 +15,7 @@ from django.db.models import Count
 @login_required()
 def index(request):
     if request.user.is_password_changed:
-        info = Installation.objects.annotate(month=TruncMonth('installation_date')).values('month').annotate(c=Count('id')).order_by()
+        info = Installation.objects.annotate(month=TruncMonth('installation_date')).values('month').annotate(c=Count('id')).order_by('month')
         context = {
             'clients': CustomUser.objects.filter(user_status='C').count(),
             'locations': Location.objects.all().count(),

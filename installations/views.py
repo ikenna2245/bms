@@ -113,7 +113,11 @@ def viewInstallation(request, pk):
         return redirect('change-password')
 
 def faultyInstallation(request):
+    paginator = Paginator(Installation.objects.filter(equipment_status = 'B').order_by('-installation_date'), 15)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
+        "page_obj": page_obj,
         'installations': Installation.objects.filter(equipment_status = 'B')
     }
     return render (request, 'installations/faulty_installation.html', context)

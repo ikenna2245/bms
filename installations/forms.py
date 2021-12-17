@@ -20,7 +20,7 @@ class LocationForm (forms.ModelForm):
         }
 
 class InstallationForm(forms.ModelForm):
-    location = forms.ModelChoiceField(queryset=Location.objects.all(), widget=forms.Select(attrs={'class':'form-control','required' :True,}))
+    location = forms.ModelChoiceField(queryset=Location.objects.all().order_by('branch_id'), widget=forms.Select(attrs={'class':'form-control','required' :True,}))
     #engineer = forms.ModelChoiceField(queryset=CustomUser.objects.filter(user_status='E'), widget=forms.Select(attrs={'class':'form-control','required' :True,}))
     
     class Meta:

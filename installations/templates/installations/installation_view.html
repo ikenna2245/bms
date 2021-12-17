@@ -53,10 +53,10 @@
                   Brand Name
                 </td>
                 <td>
-                  {% if installation.brand_name != 'none' %}
+                  {% if installation.brand_name != '0T' %}
                       {{ installation.get_brand_name_display }}
                   {% else %}
-                      {{ installation.brand_others}}
+                      {{ installation.brand_others }}
                   {% endif %} 
                 </td>
               </tr>

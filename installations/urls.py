@@ -7,6 +7,7 @@ urlpatterns = [
     path('delete/location/<int:pk>/', views.deleteLocation, name='deleteLocation'),
     path('install/', views.installation, name='installation'),
     path('view/installation/<int:pk>/', views.viewInstallation, name='viewInstallation'), 
+    path('view/installation/faulty/', views.faultyInstallation, name='faultyInstallation'), 
     path('update/installation/<int:pk>/', views.updateInstallation, name='updateInstallation'), 
     path('delete/installation/<int:pk>/', views.deleteInstallation, name='deleteInstallation'),
     path("report/", views.report, name="report"),

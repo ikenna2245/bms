@@ -112,6 +112,12 @@ def viewInstallation(request, pk):
     else:
         return redirect('change-password')
 
+def faultyInstallation(request):
+    context = {
+        'installations': Installation.objects.filter(equipment_status = 'B')
+    }
+    return render (request, 'installations/faulty_installation.html', context)
+
 @login_required()
 def deleteInstallation (request, pk):
     if request.user.is_password_changed:

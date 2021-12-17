@@ -201,7 +201,7 @@
                             {{ installation.quantity }}
                           </td>
                           <td>
-                            {% if installation.brand_name != 'none' %}
+                            {% if installation.brand_name != 'OT' %}
                             {{ installation.get_brand_name_display }}
                             {% else %}
                             {{ installation.brand_others}}
@@ -232,8 +232,11 @@
                             {{ installation.remark }}
                           </td>
                           <td>
-                            <a target="_blank" href="{{ installation.photo.url }}"> view photo</a>
-                            
+                           {% if installation.photo %}
+                           <a target="_blank" href="{{ installation.photo.url }}"> view photo</a>
+                           {% else %}
+                           No Image
+                           {% endif %} 
                           </td>
                           <td>
                             <a href="{% url 'viewInstallation' installation.id %}"  class="btn btn-sm btn-primary" >

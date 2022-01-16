@@ -27,7 +27,7 @@ def index(request):
             'UPS' : Installation.objects.filter(equipment_type = 'UPS').count(),  
             'UPS_Battery': Installation.objects.filter(equipment_type = 'UB').count(),  
             'Power_Inverter': Installation.objects.filter(equipment_type = 'PI').count(),  
-            'Power_Inverter Battery': Installation.objects.filter(equipment_type = 'PIB').count(), 
+            'Power_Inverter_Battery': Installation.objects.filter(equipment_type = 'PIB').count(), 
             'Surge_Protector': Installation.objects.filter(equipment_type = 'SP').count(),  
             'Power_Generator': Installation.objects.filter(equipment_type = 'PG').count(), 
             'Voltage_Regulator ': Installation.objects.filter(equipment_type = 'VR').count(), 

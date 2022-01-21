@@ -1,8 +1,9 @@
-    <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
+{% load static %}
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
       <div class="logo">
         <a target="_blank" rel="noopener noreferrer" 
            href="" class="simple-text logo-normal">
-          Prostar  Global Energy
+           <img class="navbar-brand" src="{% static 'assets/img/logo1.jpg' %}" alt="Fidelity bank">
         </a>
       </div>
       <div class="sidebar-wrapper">

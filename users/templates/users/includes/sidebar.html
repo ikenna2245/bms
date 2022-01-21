@@ -7,20 +7,20 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav" id="side-nav"> 
-          <li class="nav-item  active">
+        <ul class="nav"> 
+          <li class="nav-item ">
             <a class="nav-link" href="/">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ">
             <a class="nav-link" href="{% url 'clients' %}">
               <i class="material-icons">person</i>
               <p>User Profile</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ">
             <a class="nav-link" href="{% url 'location' %}">
               <i class="material-icons">location_on</i>
               <p>Locations</p>
@@ -38,7 +38,7 @@
               <p>Report</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item ">
             <a class="nav-link" href="{% url 'change-password' %}">
               <i class="material-icons">settings</i>
               <p>Change Password</p>
@@ -46,7 +46,7 @@
           </li>
           
           {% if request.user.is_authenticated %}
-            <li class="nav-item">
+            <li class="nav-item ">
             <a class="nav-link" href="{% url 'logout' %}" >
               <i class="material-icons">directions_run</i>
               <p>Logout</p>
@@ -58,20 +58,4 @@
       </div>
     </div>
 
-    <script>
-      // Get the container element
-var navContainer = document.getElementById("side-nav");
-
-// Get all buttons with class="btn" inside the container
-var navItem = navContainer.getElementsByClassName("nav-item");
-
-// Loop through the buttons and add the active class to the current/clicked button
-for (var i = 0; i < navItem.length; i++) {
-  navItem[i].addEventListener("click", function() {
-    var current = document.getElementsByClassName("active");
-    current[0].className = current[0].className.replace("active", "");
-    this.className += "active";
-  });
-}
-
-    </script>
+   
